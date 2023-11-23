@@ -12,6 +12,8 @@ const skills = ["js", "go", "nvim", "zig"];
 const happy = true;
 const finished = false;
 const goal = 4;
+
+const skillColor = "navy";
 ---
 
 <html lang="en">
@@ -21,6 +23,16 @@ const goal = 4;
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{pageTitle}</title>
+        <style>
+        h1 {
+            color: purple;
+            font-size: 4rem;
+        }
+        .skill{
+            color: green;
+            font-weight: bold;
+        }
+        </style>
     </head>
     <body>
         <a href="/">home</a>
@@ -43,7 +55,7 @@ const goal = 4;
         </ul>
         <p>my skills are: </p>
         <ul>
-            {skills.map((skill) => <li>{skill}</li>)}
+            {skills.map((skill) => <li class="skill">{skill}</li>)}
         </ul>
         <p>
             {happy && <p>i am happy learning astro</p>}
