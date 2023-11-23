@@ -1,5 +1,13 @@
 ---
 const pageTitle = "about me";
+
+const identity = {
+    fname: "naveed",
+    lname: "wani",
+    occupation: "web dev",
+    hobbies: ["code", "game", "baseball"],
+};
+const skills = ["js", "go", "nvim", "zig"];
 ---
 
 <html lang="en">
@@ -24,5 +32,14 @@ const pageTitle = "about me";
             This site will update as I complete more of the tutorial, so keep
             checking back.
         </p>
+        <p>Here are some facts about me:</p>
+        <ul>
+            <li>my name is {identity.fname}</li>
+            <li>two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+        </ul>
+        <p>my skills are: </p>
+        <ul>
+            {skills.map((skill) => <li>{skill}</li>)}
+        </ul>
     </body>
 </html>
