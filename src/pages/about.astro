@@ -1,5 +1,6 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
+import Navigation from "../components/Navigation.astro";
 const pageTitle = "about me";
 
 const identity = {
@@ -27,23 +28,21 @@ const fontFamily = "Fira Sans";
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{pageTitle}</title>
-        <style define:vars={{skillColor, fontWeight, textCase, fontFamily}}>
-        h1 {
-            color: purple;
-            font-size: 4rem;
-        }
-        .skill{
-            color: var(--skillColor);
-            font-weight: var(--fontWeight);
-            text-transform: var(--textCase);
-            font-family: var(--fontFamily);
-        }
+        <style define:vars={{ skillColor, fontWeight, textCase, fontFamily }}>
+            h1 {
+                color: purple;
+                font-size: 4rem;
+            }
+            .skill {
+                color: var(--skillColor);
+                font-weight: var(--fontWeight);
+                text-transform: var(--textCase);
+                font-family: var(--fontFamily);
+            }
         </style>
     </head>
     <body>
-        <a href="/">home</a>
-        <a href="/about">about</a>
-        <a href="/blog">blog</a>
+        <Navigation />
         <h1>{pageTitle}</h1>
         <h2>... and my Astro website!</h2>
         <p>
@@ -57,16 +56,26 @@ const fontFamily = "Fira Sans";
         <p>Here are some facts about me:</p>
         <ul>
             <li>my name is {identity.fname}</li>
-            <li>two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+            <li>
+                two of my hobbies are: {identity.hobbies[0]} and {
+                    identity.hobbies[1]
+                }
+            </li>
         </ul>
-        <p>my skills are: </p>
+        <p>my skills are:</p>
         <ul>
             {skills.map((skill) => <li class="skill">{skill}</li>)}
         </ul>
         <p>
             {happy && <p>i am happy learning astro</p>}
-            { finished && <p>i am not finished with tutorial</p>}
-            {goal === 3 ? <p>my goal is to finish tutorial in 3 days</p> : <p>maybe more then 3 days</p>}
+            {finished && <p>i am not finished with tutorial</p>}
+            {
+                goal === 3 ? (
+                    <p>my goal is to finish tutorial in 3 days</p>
+                ) : (
+                    <p>maybe more then 3 days</p>
+                )
+            }
         </p>
     </body>
 </html>
