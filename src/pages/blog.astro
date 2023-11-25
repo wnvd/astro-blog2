@@ -1,19 +1,19 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-const allPosts = await Astro.glob("./pages/posts/*.md");
-const pageTitle = "blog";
+const allPosts = await Astro.glob("../pages/posts/*.md");
+const pageTitle = "Blog";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
     <h1>Learning Astro</h1>
-    <p>this is where i willl post about my journey learning astro.</p>
+    <p>this is where i will post about my journey learning astro.</p>
     <ul>
         {
-            allPosts.map((post) => {
+            allPosts.map((post) => (
                 <li>
                     <a href={post.url}>{post.frontmatter.title}</a>
-                </li>;
-            })
+                </li>
+            ))
         }
     </ul>
 </BaseLayout>
