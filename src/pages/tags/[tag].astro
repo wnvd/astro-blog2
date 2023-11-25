@@ -1,22 +1,37 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogPost from "../../components/BlogPost.astro";
 
 export async function getStaticPaths() {
+    // contains all the routes for the posts.
+    const allPosts = await Astro.glob("../posts/*.md");
     return [
-        { params: { tag: "astro" } },
-        { params: { tag: "successes" } },
-        { params: { tag: "community" } },
-        { params: { tag: "blogging" } },
-        { params: { tag: "setbacks" } },
-        { params: { tag: "learning in public" } },
+        { params: { tag: "astro" }, props: { posts: allPosts } },
+        { params: { tag: "successes" }, props: { posts: allPosts } },
+        { params: { tag: "community" }, props: { posts: allPosts } },
+        { params: { tag: "blogging" }, props: { posts: allPosts } },
+        { params: { tag: "setbacks" }, props: { posts: allPosts } },
+        { params: { tag: "learning in public" }, props: { posts: allPosts } },
     ];
 }
 
 const { tag } = Astro.params;
+const { posts } = Astro.props;
+// filtering all the posts that have the dynamic visited tag.
+const filteredPosts = posts.filter((post) =>
+    post.frontmatter.tags?.includes(tag),
+);
 ---
 
 <BaseLayout pageTitle={tag}>
     <p>Posts tagged with {tag}</p>
+    <ul>
+        {
+            filteredPosts.map((post) => (
+                <BlogPost url={post.url} title={post.frontmatter.title} />
+            ))
+        }
+    </ul>
 </BaseLayout>
 <!--
  getStaticPaths()  will return an array of dynamic routes with the layout as defined above in using '<BaseLayout>'.
@@ -28,4 +43,23 @@ const { tag } = Astro.params;
 When you visit `localhost:4321/tags/astro` or any tag mentioned in the array of objects, you will get a page with the layout defined as above with dynamic name as mentioned in array object.
 
 So getStaticPaths() send these paths to Astro.params from where you destruct the tag `const { tag } = Astro.params;` and use it inside the BaseLayout.
+
+We use `const allPosts = await Astro.glob()` to get all the routes for the posts that will exist. And the will pass those routes as props to the array of objects which we return .
+```js
+****
+{ params: { tag: "astro" }, props: { posts: allPosts } },
+****
+````
+BE SURE TO MAKE ALL THOSE PROPS AVAILABLE TO YOUR COMPONENT TEMPATLE OUTSIDE OF YOU FUNCTION.
+
+Destruct posts from Astro.pros `const { posts }` = Astro.props;
+
+The destructured consts to filter the posts you want.
+`const filteredPosts = posts.filter((post) => posts.frontmatter.tags?.includes(tag))`;
+Check if .md posts tags array have the dynamic tag visited.
+
+Then you map through the filteredPosts and display each post's url and title.
+`<ul>
+    {filteredPosts.map((post) => <li><a url={post.url}>{post.frontmatter.title}</a></li>)}
+</ul>`
 -->
