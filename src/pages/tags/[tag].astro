@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+    return [
+        { params: { tag: "astro" } },
+        { params: { tag: "successes" } },
+        { params: { tag: "community" } },
+        { params: { tag: "blogging" } },
+        { params: { tag: "setbacks" } },
+        { params: { tag: "learning in public" } },
+    ];
+}
+
+const { tag } = Astro.params;
+---
+
+<BaseLayout pageTitle={tag}>
+    <p>Posts tagged with {tag}</p>
+</BaseLayout>
+<!--
+ getStaticPaths()  will return an array of dynamic routes with the layout as defined above in using '<BaseLayout>'.
+
+ Look carefully inside the function you defined an array of objects with property 'params' which is object itself with property tag.
+
+ After that you define a `const { tag } = Astro.params` which is passed inside the layout `<BaseLayout>`
+
+When you visit `localhost:4321/tags/astro` or any tag mentioned in the array of objects, you will get a page with the layout defined as above with dynamic name as mentioned in array object.
+
+So getStaticPaths() send these paths to Astro.params from where you destruct the tag `const { tag } = Astro.params;` and use it inside the BaseLayout.
+-->
