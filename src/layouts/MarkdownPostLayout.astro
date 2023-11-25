@@ -3,7 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout pagetitle={frontmatter.title}>
+<BaseLayout pageTitle={frontmatter.title}>
     <style>
         .larr:link {
             font-size: 2rem;
@@ -18,10 +18,9 @@ const { frontmatter } = Astro.props;
             background-color: purple;
         }
     </style>
-
     <a href="/blog" class="larr">&larr;</a>
     <p>Published on(via frontmatter): {frontmatter.pubDate.slice(0, 10)}</p>
     <p>writtern by {frontmatter.author}</p>
-    <img src={frontmatter.image.url} alt={frontmatter.image.alt} />
+    <img src={frontmatter.image.url} alt={frontmatter.image.alt} height="300" />
     <slot />
 </BaseLayout>
